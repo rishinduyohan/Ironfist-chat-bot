@@ -1,27 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Chatbot</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaming Chatbot UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div class="chat-wrapper">
-    <div class="chat-header">
-      <h2>🤖 AI Chatbot</h2>
-    </div>
+<body class="overflow-x-hidden">
+  <div class="grid-bg"></div>
 
-    <div class="chat-box" id="chat-box">
-      <div class="bot-msg">Hello! 👋 I'm your AI assistant. How can I help you today?</div>
-    </div>
+  <div class="min-h-screen flex items-center justify-center p-4 md:p-6 relative z-10">
+    <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
 
-    <div class="input-area">
-      <input type="text" id="user-input" placeholder="Type your message..."/>
-      <button onclick="sendMessage()">➤</button>
+      <aside class="col-span-1 neon-panel rounded-2xl p-5 flex flex-col gap-6 chat-card order-last md:order-first">
+        <div class="flex items-center gap-3 flex-wrap md:flex-nowrap">
+          <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-purple-600 to-teal-400 flex items-center justify-center ring-4 ring-opacity-10">
+            <svg class="w-7 h-7 md:w-8 md:h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg md:text-xl font-semibold neon-glow" style="font-family: 'Orbitron', sans-serif">OPAL-9</h3>
+            <p class="text-xs md:text-sm text-sky-300">Gaming Support AI</p>
+          </div>
+        </div>
+
+        <div class="flex-1">
+          <p class="text-sm text-slate-300">Choose a mode</p>
+          <div class="mt-3 grid grid-cols-2 gap-3">
+            <button class="py-2 px-3 rounded-xl border hover:scale-105 transition-transform text-sm">Casual</button>
+            <button class="py-2 px-3 rounded-xl bg-gradient-to-br from-indigo-600 to-teal-400 text-black font-semibold hover:brightness-105">Arena</button>
+            <button class="col-span-2 py-2 px-3 rounded-xl border text-sm">Assist</button>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-white/5">
+          <p class="text-xs text-slate-400">Status</p>
+          <div class="flex items-center justify-between mt-2 text-sm">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-green-400 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></span>
+              <span>Online</span>
+            </div>
+            <span class="text-slate-400 text-xs">v1.0</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="col-span-1 md:col-span-2 neon-panel rounded-3xl p-4 md:p-6 flex flex-col shadow-2xl">
+        <header class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+          <div>
+            <h2 class="text-lg md:text-xl font-bold neon-glow" style="font-family: 'Orbitron', sans-serif">Arena Chat</h2>
+            <p class="text-xs md:text-sm text-slate-300">Try <code class="bg-white/5 px-1 py-0.5 rounded">/strategy</code>, <code class="bg-white/5 px-1 py-0.5 rounded">/avatar</code></p>
+          </div>
+          <div class="flex items-center gap-2 md:gap-3">
+            <div class="text-sm text-slate-300 hidden sm:block">Voice</div>
+            <button id="mic" class="p-2 rounded-lg bg-white/3 hover:scale-105">🎤</button>
+          </div>
+        </header>
+
+        <section id="chatWindow" class="flex-1 overflow-y-auto p-3 md:p-4 rounded-xl chat-scroll space-y-4" style="min-height:280px; max-height:70vh;">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">AI</div>
+            <div class="message max-w-full md:max-w-xl px-3 md:px-4 py-2 md:py-3 rounded-2xl bg-gradient-to-r from-white/3 to-white/5 border border-white/6 text-sm">
+              <div class="text-slate-100">Welcome, challenger. Ready to boot the arena? Type something to begin.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="mt-3 md:mt-4">
+          <form id="chatForm" class="flex gap-2 md:gap-3 items-center">
+            <div class="flex-1 relative">
+              <input id="messageInput" autocomplete="off" placeholder="Say something..." class="w-full rounded-2xl py-2 md:py-3 pl-3 md:pl-4 pr-24 bg-black/30 placeholder:text-slate-400 outline-none text-sm md:text-base" />
+              <div class="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                <select id="tone" class="rounded-lg bg-white/5 text-xs md:text-sm py-1.5 md:py-2 px-2 md:px-3">
+                  <option>Normal</option>
+                  <option>Epic</option>
+                  <option>Casual</option>
+                </select>
+                <button type="submit" class="py-1.5 md:py-2 px-3 md:px-4 rounded-xl bg-gradient-to-br from-indigo-600 to-teal-400 font-semibold text-xs md:text-sm">Send</button>
+              </div>
+            </div>
+            <button id="quickEmote" type="button" class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-white/5">⚡</button>
+          </form>
+        </div>
+      </main>
+
     </div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
