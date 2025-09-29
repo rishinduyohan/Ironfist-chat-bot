@@ -1,0 +1,123 @@
+:root {
+    --bg1: #0f172a;
+    --neon-1: #00f5a0;
+    --neon-2: #5b6cff;
+    --panel: #0b1220;
+}
+
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: radial-gradient(ellipse at 10% 10%, rgba(91, 108, 255, 0.08), transparent 10%),
+        radial-gradient(ellipse at 90% 90%, rgba(0, 245, 160, 0.05), transparent 10%),
+        linear-gradient(180deg, #020617 0%, #071029 60%);
+    min-height: 100vh;
+    color: #dbeafe;
+}
+
+
+.grid-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background-image: linear-gradient(transparent 1px, rgba(255, 255, 255, 0.03) 1px), linear-gradient(90deg, transparent 1px, rgba(255, 255, 255, 0.03) 1px);
+    background-size: 60px 60px, 60px 60px;
+    opacity: 0.06;
+    transform: translateZ(0);
+    animation: drift 20s linear infinite;
+    mix-blend-mode: overlay;
+}
+
+@keyframes drift {
+    from {
+        background-position: 0 0, 0 0
+    }
+
+    to {
+        background-position: -120px -60px, 120px 60px
+    }
+}
+
+
+.neon-glow {
+    text-shadow: 0 0 6px rgba(91, 108, 255, 0.45), 0 0 18px rgba(0, 245, 160, 0.08);
+}
+
+.chat-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+}
+
+.message {
+    backdrop-filter: blur(6px);
+}
+
+
+.typing-dots>span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    border-radius: 50%;
+    opacity: 0.2;
+    transform: translateY(0);
+}
+
+.typing-dots>span:nth-child(1) {
+    animation: dotFlare 1s infinite 0s
+}
+
+.typing-dots>span:nth-child(2) {
+    animation: dotFlare 1s infinite 0.15s
+}
+
+.typing-dots>span:nth-child(3) {
+    animation: dotFlare 1s infinite 0.3s
+}
+
+@keyframes dotFlare {
+    0% {
+        opacity: 0.2;
+        transform: translateY(0)
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-6px)
+    }
+
+    100% {
+        opacity: 0.2;
+        transform: translateY(0)
+    }
+}
+
+
+.neon-panel {
+    box-shadow: 0 8px 30px rgba(11, 18, 32, 0.6), 0 0 24px rgba(91, 108, 255, 0.06) inset;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+
+.chat-scroll::-webkit-scrollbar {
+    width: 8px
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-2), var(--neon-1));
+    border-radius: 999px;
+}
+
+
+@media (max-width: 768px) {
+    .desktop-panel {
+        display: none
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-panel {
+        display: none
+    }
+}
