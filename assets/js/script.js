@@ -9,7 +9,7 @@ const models = [
 
 function appendMessage({ who = 'user', text = '', meta = '' }) {
     const wrap = document.createElement('div');
-    wrap.classList.add('flex', 'items-start', 'gap-2', 'md:gap-3', 'my-4');
+    wrap.classList.add('flex', 'items-start', 'gap-4', 'md:gap-3', 'my-4');
     if (who === 'user') wrap.classList.add('justify-end');
 
     const avatar = document.createElement('div');
