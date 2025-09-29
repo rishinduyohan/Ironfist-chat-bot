@@ -9,11 +9,11 @@ const models = [
 
 function appendMessage({ who = 'user', text = '', meta = '' }) {
     const wrap = document.createElement('div');
-    wrap.classList.add('flex', 'items-start', 'gap-2', 'md:gap-3');
+    wrap.classList.add('flex', 'items-start', 'gap-2', 'md:gap-3', 'my-4');
     if (who === 'user') wrap.classList.add('justify-end');
 
     const avatar = document.createElement('div');
-    avatar.className = 'w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold';
+    avatar.className = 'w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0';
     const avatarImg = document.createElement('img');
     avatarImg.src = who === 'user' ? models[1].img : models[0].img;
     avatarImg.alt = who === 'user' ? 'User Avatar' : 'AI Avatar';
@@ -43,10 +43,21 @@ function appendMessage({ who = 'user', text = '', meta = '' }) {
 function showTyping() {
     const wrap = document.createElement('div');
     wrap.className = 'flex items-start gap-2 md:gap-3 typing-placeholder';
-    const avatar = document.createElement('div'); avatar.className = 'w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold'; avatar.style.background = 'linear-gradient(90deg,#6366f1,#00f5a0)'; avatar.textContent = 'AI';
-    const bubble = document.createElement('div'); bubble.className = 'message max-w-full md:max-w-xl px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0';
+    const avatarImg = document.createElement('img');
+    avatarImg.src = models[0].img;
+    avatarImg.alt = 'AI Avatar';
+    avatarImg.className = 'w-full h-full rounded-full object-cover';
+    avatar.appendChild(avatarImg);
+
+    const bubble = document.createElement('div');
+    bubble.className = 'message max-w-full md:max-w-xl px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
     bubble.innerHTML = `<div class="typing-dots"><span style="background:var(--neon-2)"></span><span style="background:var(--neon-1)"></span><span style="background:var(--neon-2)"></span></div>`;
-    wrap.appendChild(avatar); wrap.appendChild(bubble);
+    
+    wrap.appendChild(avatar);
+    wrap.appendChild(bubble);
     chatWindow.appendChild(wrap);
     chatWindow.scrollTop = chatWindow.scrollHeight;
     return wrap;
