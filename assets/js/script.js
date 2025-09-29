@@ -47,14 +47,15 @@ function showTyping() {
 }
 
 
-function generateBotReply(userText) {
-    const lower = userText.toLowerCase();
-    if (!userText.trim()) return "Say something, challenger...";
-    if (lower.includes('hello') || lower.includes('hi')) return 'Hey! Ready to level up?';
-    if (lower.includes('strategy')) return 'Tip: Control resources, then rotate to objectives.';
-    if (lower.includes('avatar')) return 'Avatar unlocked: Neon Warden!';
-    if (lower.includes('help')) return 'I can guide you: build guides, tactics, or match sim.';
-    return "Interesting... (demo reply)";
+async function generateBotReply(userText){
+  const response = await fetch("http://localhost:3000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userText })
+  });
+
+  const data = await response.json();
+  return data.choices[0].message.content;
 }
 
 
