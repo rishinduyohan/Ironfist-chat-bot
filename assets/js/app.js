@@ -9,7 +9,7 @@ function speak(text){
     window.speechSynthesis.speak(text_speak);
 }
 
-wishMe=()=>{
+const wishMe=()=>{
     var day = new Date();
     var hour = day.getHours();
 
@@ -28,11 +28,21 @@ window.addEventListener('load', ()=>{
     wishMe();
 });
 
-function takeCommand(){
-    if(MessageChannel.includes('hey') || message.includes('hello')){
+function takeCommand(message){
+    if(message.includes('hey') || message.includes('hello')){
         speak("Hello Sir How may I Help You?");
-    }else{
-        speak("Make more intellegent...")
+    }
+    else if(message.includes("open google")){
+        window.open("https://www.google.com","_blank");
+        speak("Opening Google...")
+    }
+    else if(message.includes("open youtube")){
+        window.open("https://www.youtube.com","_blank");
+        speak("Opening Youtube...")
+    }
+    else if(message.includes("open facebook")){
+        window.open("https://www.facebook.com","_blank");
+        speak("Opening facebook...")
     }
 }
 
@@ -44,10 +54,10 @@ recognition.onresult = (event)=>{
     const currentIndex = event.resultIndex;
     const transcript = event.results[currentIndex][0].transcript;
     content.textContent = transcript;
-    takeCommand(textContent.toLowerCase());
+    takeCommand(transcript.toLowerCase());
 }
 
-btn.addEventListener('click',()=>{
-    content.textContent = "Listning...";
+mic.addEventListener('click',()=>{
+    content.textContent = "Listening...";
     recognition.start();
 });
