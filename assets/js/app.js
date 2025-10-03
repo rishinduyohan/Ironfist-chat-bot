@@ -9,3 +9,6 @@ function speak(text){
     window.speechSynthesis.speak(text_speak);
 }
 
+window.addEventListener('load', ()=>{
+    speak("Initializing IronFist..");
+});
