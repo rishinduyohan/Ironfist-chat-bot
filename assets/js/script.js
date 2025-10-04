@@ -9,7 +9,7 @@ const models = [
 
 function appendMessage({ who = 'user', text = '', meta = '' }) {
     const wrap = document.createElement('div');
-    wrap.classList.add('flex', 'items-start', 'gap-4', 'md:gap-3', 'my-4');
+    wrap.classList.add('flex', 'items-start', 'gap-4', 'md:gap-3', 'my-4','max-w-3xl', 'mx-auto');
     if (who === 'user') wrap.classList.add('justify-end');
 
     const avatar = document.createElement('div');
@@ -17,7 +17,7 @@ function appendMessage({ who = 'user', text = '', meta = '' }) {
     const avatarImg = document.createElement('img');
     avatarImg.src = who === 'user' ? models[1].img : models[0].img;
     avatarImg.alt = who === 'user' ? 'User Avatar' : 'AI Avatar';
-    avatarImg.className = 'w-full h-full rounded-full object-cover';
+    avatarImg.className = 'w-9 h-9 rounded-full border-2 border-indigo-400';
     avatar.appendChild(avatarImg);
 
 
@@ -90,14 +90,6 @@ form.addEventListener('submit', (e) => {
         appendMessage({ who: 'bot', text: reply });
     }, 900 + Math.min(2000, text.length * 40));
 });
-
-
-document.getElementById('quickEmote').addEventListener('click', () => {
-    appendMessage({ who: 'user', text: '⚡ Quick emote!' });
-    const ph = showTyping();
-    setTimeout(() => { ph.remove(); appendMessage({ who: 'bot', text: '⚡ Emote registered.' }) }, 800);
-});
-
 
 input.focus();
 window.addEventListener('keydown', (e) => { if (e.key === '/') { e.preventDefault(); input.focus(); } });

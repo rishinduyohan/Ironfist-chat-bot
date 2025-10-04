@@ -1,5 +1,5 @@
-const mic = document.querySelector('.mic');
-const content = document.querySelector('.content');
+const mic = document.getElementById('mic');
+
 function speak(text){
     const text_speak = new SpeechSynthesisUtterance(text);
     text_speak.rate = 1;
@@ -48,16 +48,20 @@ function takeCommand(message){
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const recognition = new SpeechRecognition();
-
-recognition.onresult = (event)=>{
-    const currentIndex = event.resultIndex;
-    const transcript = event.results[currentIndex][0].transcript;
-    content.textContent = transcript;
-    takeCommand(transcript.toLowerCase());
+let recognition;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+} else {
+    alert("Speech Recognition is not supported in this browser.");
 }
 
+// recognition.onresult = (event)=>{
+//     const currentIndex = event.resultIndex;
+//     const transcript = event.results[currentIndex][0].transcript;
+//     content.textContent = transcript;
+//     takeCommand(transcript.toLowerCase());
+// }
+
 mic.addEventListener('click',()=>{
-    content.textContent = "Listening...";
     recognition.start();
 });
