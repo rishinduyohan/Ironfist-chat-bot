@@ -1,5 +1,14 @@
-const mic = document.getElementById('mic');
+const mic = document.getElementById('speak-mic');
 
+document.getElementById('speak-mic').addEventListener('click', function() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.classList.add('animate__animated', 'animate__pulse');
+            chatWindow.style.boxShadow = '0 0 40px 10px #a78bfa, 0 0 80px 20px #f472b6, 0 0 120px 30px #818cf8';
+            setTimeout(() => {
+              chatWindow.classList.remove('animate__animated', 'animate__pulse');
+              chatWindow.style.boxShadow = '';
+            }, 700);
+          });
 function speak(text){
     const text_speak = new SpeechSynthesisUtterance(text);
     text_speak.rate = 1;
@@ -24,7 +33,7 @@ const wishMe=()=>{
     }
 }
 window.addEventListener('load', ()=>{
-    speak("Initializing IronFist..");
+    speak("Welcome to IronFist-9..");
     wishMe();
 });
 
