@@ -3,13 +3,13 @@ const form = document.getElementById('chatForm');
 const input = document.getElementById('messageInput');
 
 const models = [
-    { name: "Ai", img: "assets/images/iron-man-g224939067_1280.jpg" },
+    { name: "IronFist-9", img: "assets/images/iron-man-g224939067_1280.jpg" },
     { name: "user", img: "assets/images/futuristic-iron-man-ai-art-4.png" }
 ];
 
 function appendMessage({ who = 'user', text = '', meta = '' }) {
     const wrap = document.createElement('div');
-    wrap.classList.add('flex', 'items-start', 'gap-4', 'md:gap-3', 'my-4');
+    wrap.classList.add('flex', 'items-start', 'gap-4', 'md:gap-3', 'my-4','max-w-3xl', 'mx-auto');
     if (who === 'user') wrap.classList.add('justify-end');
 
     const avatar = document.createElement('div');
@@ -17,7 +17,7 @@ function appendMessage({ who = 'user', text = '', meta = '' }) {
     const avatarImg = document.createElement('img');
     avatarImg.src = who === 'user' ? models[1].img : models[0].img;
     avatarImg.alt = who === 'user' ? 'User Avatar' : 'AI Avatar';
-    avatarImg.className = 'w-full h-full rounded-full object-cover';
+    avatarImg.className = 'w-9 h-9 rounded-full border-2 border-indigo-400';
     avatar.appendChild(avatarImg);
 
 
@@ -53,7 +53,7 @@ function showTyping() {
     avatar.appendChild(avatarImg);
 
     const bubble = document.createElement('div');
-    bubble.className = 'message max-w-full md:max-w-xl px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
+    bubble.className = 'message max-w-large md:max-w-large px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
     bubble.innerHTML = `<div class="typing-dots"><span style="background:var(--neon-2)"></span><span style="background:var(--neon-1)"></span><span style="background:var(--neon-2)"></span></div>`;
     
     wrap.appendChild(avatar);
@@ -68,10 +68,27 @@ function generateBotReply(userText) {
     const lower = userText.toLowerCase();
     if (!userText.trim()) return "Say something, challenger...";
     if (lower.includes('hello') || lower.includes('hi')) return 'Hey! Ready to level up?';
-    if (lower.includes('strategy')) return 'Tip: Control resources, then rotate to objectives.';
-    if (lower.includes('avatar')) return 'Avatar unlocked: Neon Warden!';
-    if (lower.includes('help')) return 'I can guide you: build guides, tactics, or match sim.';
-    return "Interesting... (demo reply)";
+    if(lower.includes('what is')||lower.includes('who is')||lower.includes('how is')){
+        window.open(`https://www.google.com/search?q=${lower.replace(" ","+")}`,"_blank");
+        const finalText = "This is what I found on..."+lower;
+        return(finalText);
+    }
+    if(lower.includes('wikipedia')){
+        window.open(`https://en.wikipedia.org/wiki/${lower.replace("wikipedia","")}`,"_blank");
+        const finalText = "This is what I found on wikipedia..."+lower;
+        return(finalText);
+    }
+    if(lower.includes('time')){
+        const time = new Date().toLocaleString(undefined,{hour: "numeric",minute: "numeric",second: "numeric"});
+        const finalText = "Time is... "+time;
+        return(finalText);
+    }
+    if(lower.includes('date')||lower.includes('day')||lower.includes('today')){
+        const day = new Date().toLocaleString(undefined,{month: "short",day: "numeric",year: "numeric"});
+        const finalText = "Today is... "+day;
+        return(finalText);
+    }
+    return "can you describe it more?..";
 }
 
 
@@ -90,14 +107,6 @@ form.addEventListener('submit', (e) => {
         appendMessage({ who: 'bot', text: reply });
     }, 900 + Math.min(2000, text.length * 40));
 });
-
-
-document.getElementById('quickEmote').addEventListener('click', () => {
-    appendMessage({ who: 'user', text: '⚡ Quick emote!' });
-    const ph = showTyping();
-    setTimeout(() => { ph.remove(); appendMessage({ who: 'bot', text: '⚡ Emote registered.' }) }, 800);
-});
-
 
 input.focus();
 window.addEventListener('keydown', (e) => { if (e.key === '/') { e.preventDefault(); input.focus(); } });

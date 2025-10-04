@@ -3,110 +3,71 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IronFist-9 | AI Chat</title>
+  <title>IronFist-9 | AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="shortcut icon" href="assets/images/iron-man-g224939067_1280.jpg" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #131314;
-      color: #e3e3e3;
-    }
-    .gemini-gradient-text {
-      background: -webkit-linear-gradient(120deg, #89b3f8, #9a89f8, #f889ba);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .chat-input-container {
-      background-color: #1e1f20;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-    }
-    .chat-input {
-      background-color: #1e1f20;
-      caret-color: #8ab4f8;
-    }
-    .chat-input:focus {
-      outline: none;
-    }
-    .icon-button {
-      color: #94a3b8;
-      transition: background-color 0.2s ease-in-out;
-    }
-    .icon-button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #e3e3e3;
-    }
-    .chat-scroll::-webkit-scrollbar {
-      width: 8px;
-    }
-    .chat-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .chat-scroll::-webkit-scrollbar-thumb {
-      background-color: #444746;
-      border-radius: 20px;
-      border: 3px solid #131314;
-    }
-    .material-symbols-outlined {
-      font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24
-    }
-  </style>
 </head>
-<body class="flex flex-col h-screen">
+<body class="flex flex-col h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950 text-gray-100 font-inter">
 
-  <header class="p-4 flex justify-between items-center">
-    <h1 class="text-xl font-medium">IronFist-9</h1>
+  <!-- Header -->
+  <header class="flex items-center justify-between px-8 py-4 bg-gray-900/80 shadow-lg">
+    <div class="flex items-center gap-3">
+      <img src="assets/images/iron-man-g224939067_1280.jpg" alt="Logo" class="w-10 h-10 rounded-full border-2 border-indigo-500 shadow-md" />
+      <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">IronFist-9</h1>
+    </div>
     <div class="flex items-center gap-2">
-      <button class="icon-button p-2 rounded-full">
-        <span class="material-symbols-outlined">apps</span>
+      <button class="p-2 rounded-full hover:bg-gray-800 transition">
+        <span class="material-symbols-outlined text-xl text-indigo-400">apps</span>
       </button>
-      <img src="assets/images/iron-man-g224939067_1280.jpg" alt="User Avatar" class="w-8 h-8 rounded-full">
+      <img src="assets/images/ai-generated-7920006_1280.jpg" alt="User Avatar" class="w-8 h-8 rounded-full border border-gray-700" />
     </div>
   </header>
 
-  <main id="chatWindow" class="flex-1 overflow-y-auto chat-scroll px-4">
-    <div class="max-w-4xl mx-auto h-full flex flex-col justify-end">
-      <div class="pt-24 pb-12 text-center">
-        <h2 class="text-5xl md:text-6xl font-bold gemini-gradient-text">Hello, Challenger</h2>
-        <p class="mt-4 text-xl text-slate-400">How can I help you today?</p>
+  <!-- Chat Window -->
+  <main id="chatWindow" class="flex-1 overflow-y-auto px-4 py-6">
+    <div class="max-w-3xl mx-auto flex flex-col h-full">
+      <div class="flex flex-col items-center justify-center py-12">
+        <h2 class="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">Hello, Challenger</h2>
+        <p class="text-lg text-gray-400 mb-4">How can I help you today?</p>
       </div>
-      
-      <div class="space-y-6 pb-4">
+      <div id="chatMessages" class="flex flex-col gap-6 flex-1 pb-6">
         <div class="flex items-start gap-4">
-          <img src="assets/images/ai-generated-7920006_1280.jpg" alt="AI Avatar" class="w-8 h-8 rounded-full mt-1">
-          <div class="flex-1">
-            <p class="font-bold">IronFist-9</p>
-            <p class="text-slate-300">Welcome to the arena. Ready to devise a winning strategy? Type something to begin.</p>
+          <img src="assets/images/ai-generated-7920006_1280.jpg" alt="AI Avatar" class="w-9 h-9 rounded-full border-2 border-indigo-400" />
+          <div class="bg-gray-800 rounded-2xl px-5 py-3 shadow-md max-w-lg">
+            <p class="font-semibold text-indigo-400">IronFist-9</p>
+            <p class="text-gray-200">Hi there! How can I assist you today?</p>
           </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="px-4 pb-4 pt-2">
-    <div class="max-w-4xl mx-auto">
-      <form id="chatForm" class="chat-input-container rounded-full p-2 flex items-center gap-2">
-        <input id="messageInput" autocomplete="off" placeholder="Enter a prompt here" class="chat-input flex-1 w-full py-2 px-4 text-lg placeholder:text-slate-500 focus:outline-none" />
-        <button type="button" class="icon-button p-2 rounded-full">
-          <span class="material-symbols-outlined">add_photo_alternate</span>
+  <!-- Chat Input -->
+  <footer class="bg-gray-900/80 px-4 py-4 shadow-inner">
+    <div class="max-w-3xl mx-auto">
+      <form id="chatForm" class="flex items-center gap-3 bg-gray-800 rounded-full px-4 py-2 shadow-lg">
+        <input id="messageInput" autocomplete="off" placeholder="Type your message or use voice..." class="flex-1 bg-transparent text-lg text-gray-100 placeholder-gray-400 focus:outline-none" />
+        <button type="button" class="p-2 rounded-full hover:bg-gray-700 transition" title="Attach Image">
+          <span class="material-symbols-outlined text-xl text-indigo-400">add_photo_alternate</span>
         </button>
-        <button id="mic" type="button" class="icon-button p-2 rounded-full">
-          <span class="material-symbols-outlined">mic</span>
+        <button id="mic" type="button" class="p-2 rounded-full hover:bg-gray-700 transition" title="Voice Command">
+          <span class="material-symbols-outlined text-xl text-pink-400">mic</span>
         </button>
-        <button type="submit" class="p-2 rounded-full bg-slate-600 hover:bg-slate-500 transition-colors">
-          <span class="material-symbols-outlined">arrow_upward</span>
+        <!-- <script>
+          document.getElementById('mic').addEventListener('click', function() {
+            alert('Voice command activated!');
+          });
+        </script> -->
+        <button type="submit" class="p-2 rounded-full bg-indigo-600 hover:bg-indigo-500 transition text-white shadow-md" title="Send">
+          <span class="material-symbols-outlined text-xl">arrow_upward</span>
         </button>
       </form>
-      <p class="text-xs text-center text-slate-500 mt-2">IronFist-9 may display inaccurate info, including about people, so double-check its responses.</p>
+      <p class="text-xs text-center text-gray-500 mt-2">IronFist-9 may display inaccurate info, including about people. Double-check its responses.</p>
     </div>
   </footer>
-
+  <script src="assets/js/app.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>
