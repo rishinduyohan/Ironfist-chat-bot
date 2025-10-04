@@ -73,6 +73,21 @@ function generateBotReply(userText) {
         const finalText = "This is what I found on..."+lower;
         return(finalText);
     }
+    if(lower.includes('wikipedia')){
+        window.open(`https://en.wikipedia.org/wiki/${lower.replace("wikipedia","")}`,"_blank");
+        const finalText = "This is what I found on wikipedia..."+lower;
+        return(finalText);
+    }
+    if(lower.includes('time')){
+        const time = new Date().toLocaleString(undefined,{hour: "numeric",minute: "numeric",second: "numeric"});
+        const finalText = "Time is... "+time;
+        return(finalText);
+    }
+    if(lower.includes('date')||lower.includes('day')||lower.includes('today')){
+        const day = new Date().toLocaleString(undefined,{month: "short",day: "numeric",year: "numeric"});
+        const finalText = "Today is... "+day;
+        return(finalText);
+    }
     return "can you describe it more?..";
 }
 
