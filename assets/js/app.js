@@ -44,16 +44,21 @@ function takeCommand(message){
         window.open("https://www.facebook.com","_blank");
         speak("Opening facebook...")
     }
+    else if(message.includes('what is')||message.includes('who is')||message.includes('how is')){
+        window.open(`https://www.google.com/search?q=${message.replace(" ","+")}`,"_blank");
+        const finalText = "This is what I found on..."+message;
+        speak(finalText);
+    }
 }
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-let recognition;
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-} else {
-    alert("Speech Recognition is not supported in this browser.");
-}
+// let recognition;
+// if (SpeechRecognition) {
+//     recognition = new SpeechRecognition();
+// } else {
+//     alert("Speech Recognition is not supported in this browser.");
+// }
 
 // recognition.onresult = (event)=>{
 //     const currentIndex = event.resultIndex;
@@ -62,6 +67,6 @@ if (SpeechRecognition) {
 //     takeCommand(transcript.toLowerCase());
 // }
 
-mic.addEventListener('click',()=>{
-    recognition.start();
-});
+// mic.addEventListener('click',()=>{
+//     recognition.start();
+// });

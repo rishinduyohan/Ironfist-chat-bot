@@ -3,7 +3,7 @@ const form = document.getElementById('chatForm');
 const input = document.getElementById('messageInput');
 
 const models = [
-    { name: "Ai", img: "assets/images/iron-man-g224939067_1280.jpg" },
+    { name: "IronFist-9", img: "assets/images/iron-man-g224939067_1280.jpg" },
     { name: "user", img: "assets/images/futuristic-iron-man-ai-art-4.png" }
 ];
 
@@ -53,7 +53,7 @@ function showTyping() {
     avatar.appendChild(avatarImg);
 
     const bubble = document.createElement('div');
-    bubble.className = 'message max-w-full md:max-w-xl px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
+    bubble.className = 'message max-w-large md:max-w-large px-3 md:px-4 py-2 md:py-3 rounded-2xl text-sm';
     bubble.innerHTML = `<div class="typing-dots"><span style="background:var(--neon-2)"></span><span style="background:var(--neon-1)"></span><span style="background:var(--neon-2)"></span></div>`;
     
     wrap.appendChild(avatar);
@@ -68,10 +68,12 @@ function generateBotReply(userText) {
     const lower = userText.toLowerCase();
     if (!userText.trim()) return "Say something, challenger...";
     if (lower.includes('hello') || lower.includes('hi')) return 'Hey! Ready to level up?';
-    if (lower.includes('strategy')) return 'Tip: Control resources, then rotate to objectives.';
-    if (lower.includes('avatar')) return 'Avatar unlocked: Neon Warden!';
-    if (lower.includes('help')) return 'I can guide you: build guides, tactics, or match sim.';
-    return "Interesting... (demo reply)";
+    if(lower.includes('what is')||lower.includes('who is')||lower.includes('how is')){
+        window.open(`https://www.google.com/search?q=${lower.replace(" ","+")}`,"_blank");
+        const finalText = "This is what I found on..."+lower;
+        return(finalText);
+    }
+    return "can you describe it more?..";
 }
 
 
