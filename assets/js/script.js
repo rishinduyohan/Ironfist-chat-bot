@@ -4,7 +4,7 @@ const input = document.getElementById('messageInput');
 
 const models = [
     { name: "IronFist-9", img: "assets/images/iron-man-g224939067_1280.jpg" },
-    { name: "user", img: "assets/images/futuristic-iron-man-ai-art-4.png" }
+    { name: "user", img: "assets/images/ai-generated-7920006_1280.jpg" }
 ];
 
 function appendMessage({ who = 'user', text = '', meta = '' }) {

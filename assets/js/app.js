@@ -51,11 +51,11 @@ function takeCommand(message) {
         speak("Opening Youtube...")
     }
     else if (message.includes("open facebook")) {
-        window.open("https://www.facebook.com", "_blank");
+        window.open("https://web.facebook.com/profile.php?id=100084494679441", "_blank");
         speak("Opening facebook...")
     }
-    else if (message.includes("open Instegram")) {
-        window.open("https://www.instegram.com", "_blank");
+    else if (message.includes("open Instagram")) {
+        window.open("https://www.instagram.com/rishix_b/", "_blank");
         speak("Opening facebook...")
     }
     else if (message.includes('what is') || message.includes('who is') || message.includes('how is')) {
