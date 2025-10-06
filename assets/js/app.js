@@ -61,22 +61,22 @@ function takeCommand(message) {
     }
 }
 
-// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-// let recognition;
-// if (SpeechRecognition) {
-//     recognition = new SpeechRecognition();
-// } else {
-//     alert("Speech Recognition is not supported in this browser.");
-// }
+let recognition;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
 
-// recognition.onresult = (event)=>{
-//     const currentIndex = event.resultIndex;
-//     const transcript = event.results[currentIndex][0].transcript;
-//     content.textContent = transcript;
-//     takeCommand(transcript.toLowerCase());
-// }
+    recognition.onresult = (event) => {
+        const currentIndex = event.resultIndex;
+        const transcript = event.results[currentIndex][0].transcript;
+        content.textContent = transcript;
+        takeCommand(transcript.toLowerCase());
+    };
+} else {
+    alert("Speech Recognition is not supported in this browser.");
+}
 
-// mic.addEventListener('click',()=>{
-//     recognition.start();
-// });
+mic.addEventListener('click',()=>{
+    recognition.start();
+});
