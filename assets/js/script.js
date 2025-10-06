@@ -68,7 +68,9 @@ function generateBotReply(userText) {
     const lower = userText.toLowerCase();
     if (!userText.trim()) return "Say something, challenger...";
     if (lower.includes('hello') || lower.includes('hi')) return 'Hey! Ready to level up?';
-    if(lower.includes('what is')||lower.includes('who is')||lower.includes('how is')){
+    if(lower.includes('yes')) return 'Great...! Tell me about what you want to know ?';
+    
+    if(lower.includes('what is') || lower.includes('who is') || lower.includes('how is')){
         window.open(`https://www.google.com/search?q=${lower.replace(" ","+")}`,"_blank");
         const finalText = "This is what I found on..."+lower;
         return(finalText);
@@ -88,7 +90,16 @@ function generateBotReply(userText) {
         const finalText = "Today is... "+day;
         return(finalText);
     }
-    return "can you describe it more?..";
+    if(lower.includes('calculator')){
+        window.open('Calculator:///')
+        const finalText = "Opening Calculator";
+        return(finalText);
+    }
+    else{
+        window.open(`https://www.google.com/search?q=${lower.replace(" ","+")}`,"_blank");
+        const finalText = "I found some information about "+lower+" on google";
+        return(finalText);
+    }
 }
 
 
