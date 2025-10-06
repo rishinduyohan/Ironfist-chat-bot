@@ -1,4 +1,4 @@
-const mic = document.getElementById('speak-mic');
+const mic = document.querySelector('.mices');
 
 document.getElementById('speak-mic').addEventListener('click', function () {
     const chatWindow = document.getElementById('chatWindow');
@@ -19,7 +19,7 @@ function speak(text) {
     window.speechSynthesis.speak(text_speak);
 }
 
-const wishMe = () => {
+function wishMe(){
     var day = new Date();
     var hour = day.getHours();
 
@@ -54,27 +54,51 @@ function takeCommand(message) {
         window.open("https://www.facebook.com", "_blank");
         speak("Opening facebook...")
     }
+    else if (message.includes("open Instegram")) {
+        window.open("https://www.instegram.com", "_blank");
+        speak("Opening facebook...")
+    }
     else if (message.includes('what is') || message.includes('who is') || message.includes('how is')) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "This is what I found on..." + message;
+        speak(finalText);
+    }
+    else if(message.includes('wikipedia')){
+        window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia","")}`,"_blank");
+        const finalText = "This is what I found on wikipedia..."+message;
+        speak(finalText);
+    }
+    else if(message.includes('time')){
+        const time = new Date().toLocaleString(undefined,{hour: "numeric",minute: "numeric",second: "numeric"});
+        const finalText = "Time is... "+time;
+        speak(finalText);
+    }
+    else if(message.includes('date')||message.includes('day')||message.includes('today')){
+        const day = new Date().toLocaleString(undefined,{month: "short",day: "numeric",year: "numeric"});
+        const finalText = "Today is... "+day;
+        speak(finalText);
+    }
+    else if(message.includes('calculator')){
+        window.open('Calculator:///')
+        const finalText = "Opening Calculator";
+        speak(finalText);
+    }
+    else{
+        window.open(`https://www.google.com/search?q=${message.replace(" ","+")}`,"_blank");
+        const finalText = "I found some information about "+message+" on google";
         speak(finalText);
     }
 }
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-let recognition;
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
+let recognition = new SpeechRecognition();
 
-    recognition.onresult = (event) => {
-        const currentIndex = event.resultIndex;
-        const transcript = event.results[currentIndex][0].transcript;
-        content.textContent = transcript;
-        takeCommand(transcript.toLowerCase());
-    };
-} else {
-    alert("Speech Recognition is not supported in this browser.");
+recognition.onresult = (event)=>{
+    const currentIndex = event.resultIndex;
+    const transcript = event.results[currentIndex][0].transcript; 
+    const textContent = transcript;
+    takeCommand(textContent.toLowerCase())
 }
 
 mic.addEventListener('click',()=>{
